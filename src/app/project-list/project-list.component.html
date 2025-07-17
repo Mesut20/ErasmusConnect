@@ -1,0 +1,31 @@
+<div class="project-list-container">
+  <h2>Projekt</h2>
+  <table class="project-table">
+    <thead>
+      <tr>
+        <th>Titel</th>
+        <th>Beskrivning</th>
+        <th>Avsändande universitet</th>
+        <th>Mottagande universitet</th>
+        <th>Land</th>
+        <th>Deadline</th>
+        <th>ECTS</th>
+        <th>Åtgärder</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let project of projects">
+        <td>{{ project.title }}</td>
+        <td>{{ project.description }}</td>
+        <td>{{ project.sendingUniversity }}</td>
+        <td>{{ project.receivingUniversity }}</td>
+        <td>{{ project.country }}</td>
+        <td>{{ project.applicationDeadline | date:'yyyy-MM-dd' }}</td>
+        <td>{{ project.ectsCredits }}</td>
+        <td>
+          <button class="delete-btn" (click)="deleteProject(project.id)">Radera</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

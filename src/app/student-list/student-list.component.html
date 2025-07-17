@@ -1,0 +1,27 @@
+<div class="student-list-container">
+  <h2>Studenter</h2>
+  <table class="student-table">
+    <thead>
+      <tr>
+        <th>Namn</th>
+        <th>Email</th>
+        <th>Hemuniversitet</th>
+        <th>Land</th>
+        <th>Intressen</th>
+        <th>Åtgärder</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students">
+        <td>{{ student.name }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.homeUniversity }}</td>
+        <td>{{ student.country }}</td>
+        <td>{{ student.interests?.join(', ') }}</td>
+        <td>
+          <button class="delete-btn" (click)="deleteStudent(student.id)">Radera</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

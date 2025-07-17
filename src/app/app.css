@@ -1,0 +1,320 @@
+:host {
+  --bright-blue: oklch(51.01% 0.274 250.05);
+  --electric-violet: oklch(60.09% 0.28 288.18);
+  --french-violet: oklch(47.66% 0.246 305.88);
+  --vivid-pink: oklch(69.02% 0.277 332.77);
+  --hot-pink: oklch(62.8% 0.257 340.66);
+  --pink: oklch(73.07% 0.09 304.31);
+  --light-pink: oklch(94.6% 0.037 304.27);
+
+  --gray-900: oklch(19.37% 0.006 300.98);
+  --gray-700: oklch(32.41% 0.008 302.13);
+  --gray-400: oklch(57.73% 0.004 302.87);
+  --gray-300: oklch(67.25% 0.003 302.16);
+  --gray-100: oklch(92.16% 0.003 294.87);
+  --gray-000: oklch(97.6% 0.003 300.97);
+
+  --black: lch(0% 0 0);
+  --white: lch(100% 0 0);
+
+  --indent: max(5vw, 2em);
+  --font-mono: "IBM Plex Mono";
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-block-size: 100dvb;
+  min-inline-size: 100dvmin;
+  margin: 0;
+  padding: var(--indent);
+  font: 400 1.125rem/1.625 var(--font-mono), monospace;
+  color: var(--gray-300);
+  background: #f5f6fa;
+  accent-color: var(--pink);
+}
+
+h1 {
+  margin-block: 0 0.5rem;
+  line-height: 1;
+  color: var(--white);
+}
+
+p {
+  margin: 0;
+  color: var(--gray-100);
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  inline-size: 100%;
+  max-inline-size: 23ch;
+  aspect-ratio: 0.7;
+  margin: auto;
+  color: var(--gray-100);
+  text-align: center;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #3498db;
+  color: #fff;
+  padding: 0 32px;
+  height: 60px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-left: 0;
+  letter-spacing: 1px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.navbar-links a.active,
+.navbar-links a:hover {
+  background: #217dbb;
+}
+
+.navbar-lang {
+  margin-left: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-lang select {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  background: #fff;
+  color: #2356a8;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.navbar-lang select:focus {
+  border-color: #3498db;
+}
+
+.hero {
+  background: linear-gradient(90deg, #3498db 0%, #6dd5fa 100%);
+  color: #fff;
+  text-align: center;
+  padding: 48px 24px 32px 24px;
+  margin-bottom: 24px;
+  border-radius: 0 0 16px 16px;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 0;
+}
+
+.content {
+  --rotateY: -15deg;
+
+  position: sticky;
+  inset-block-start: var(--indent);
+  display: flex;
+  place-items: center;
+  inline-size: 100%;
+  block-size: calc(100dvb - (2 * var(--indent)));
+  padding: 1rem;
+  text-align: center;
+  transform: rotateY(var(--rotateY)) translateZ(4rem);
+  transform-style: preserve-3d;
+  transition: transform 0.65s var(--transition-ease);
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.divider {
+  inline-size: 100%;
+  max-inline-size: 13rem;
+  margin: 1.5rem auto;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--light-pink) 15% 85%,
+    transparent
+  );
+  block-size: 1px;
+}
+
+.pill-group {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.pill-group--link {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.pill-group--link:hover,
+.pill-group--link:focus {
+  color: var(--pink);
+}
+
+.pill-group--link:nth-child(6n + 1):not(:only-child) {
+  --accent: var(--bright-blue);
+}
+.pill-group--link:nth-child(6n + 2):not(:only-child) {
+  --accent: var(--electric-violet);
+}
+.pill-group--link:nth-child(6n + 3):not(:only-child) {
+  --accent: var(--french-violet);
+}
+.pill-group--link:nth-child(6n + 4):not(:only-child) {
+  --accent: var(--vivid-pink);
+}
+.pill-group--link:nth-child(6n + 5):not(:only-child) {
+  --accent: var(--hot-pink);
+}
+.pill-group--link:is(:hover, :focus-visible):not(:only-child) {
+  --accent: var(--pink);
+}
+
+.pill-group .pill-group--link {
+  position: relative;
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  transition: color 0.3s var(--transition-ease);
+}
+
+.pill-group .pill-group--link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  filter: blur(0.5rem);
+  z-index: -1;
+  transition: opacity 0.2s;
+  opacity: 0;
+}
+
+.pill-group .pill-group--link:is(:hover, :focus-visible)::before {
+  opacity: 1;
+}
+
+.pill-group .pill-group--link svg {
+  inline-size: 1rem;
+}
+
+.social-links {
+  position: fixed;
+  bottom: var(--indent);
+  left: var(--indent);
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+@media (max-width: 650px) {
+  .social-links {
+    right: var(--indent);
+    justify-content: space-between;
+  }
+}
+
+.social-links > a {
+  color: var(--gray-400);
+}
+
+.social-links > a:hover,
+.social-links > a:focus {
+  color: var(--gray-100);
+}
+
+.social-links svg {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .content {
+      animation: rotate linear;
+      animation-timeline: scroll();
+      animation-range: contain;
+    }
+  }
+
+  @keyframes rotate {
+    to {
+      --rotateY: 15deg;
+    }
+  }
+}
+
+@supports (view-timeline: --subject) {
+  @media (prefers-reduced-motion: no-preference) {
+    .content {
+      animation: rotate linear;
+      animation-timeline: --subject;
+      animation-range: entry 25% cover 50%;
+    }
+  }
+
+  @keyframes rotate {
+    to {
+      --rotateY: 15deg;
+    }
+  }
+}

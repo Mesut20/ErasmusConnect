@@ -1,0 +1,20 @@
+<div class="register-container">
+  <h2>Registrering</h2>
+  <form (ngSubmit)="register()">
+    <label for="username">Användarnamn</label>
+    <input id="username" [(ngModel)]="username" name="username" required pattern="^[A-Z][a-zA-Z0-9]*$" title="Första bokstaven måste vara stor.">
+    <label for="password">Lösenord</label>
+    <input id="password" type="password" [(ngModel)]="password" name="password" required pattern="^[A-Z][a-zA-Z0-9]*$" title="Första bokstaven måste vara stor.">
+    <label for="firstName">Förnamn</label>
+    <input id="firstName" [(ngModel)]="firstName" name="firstName" required>
+    <label for="lastName">Efternamn</label>
+    <input id="lastName" [(ngModel)]="lastName" name="lastName" required>
+    <label for="profilePic">Profilbild</label>
+    <input id="profilePic" type="file" (change)="onFileChange($event)">
+    <button type="submit">Registrera</button>
+    <div class="error" *ngIf="error">{{ error }}</div>
+    <div class="shortcut">
+      <a routerLink="/login">Har du redan ett konto? Logga in här</a>
+    </div>
+  </form>
+</div>

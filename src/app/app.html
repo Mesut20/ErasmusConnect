@@ -1,0 +1,35 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <span class="navbar-title">ErasmusConnect</span>
+  </div>
+  <ul class="navbar-links">
+    <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+    <li><a routerLink="/projects" routerLinkActive="active">Projekt</a></li>
+    <li><a routerLink="/students" routerLinkActive="active">Studenter</a></li>
+    <li><a routerLink="/documents" routerLinkActive="active">Dokument</a></li>
+    <li><a routerLink="/register" routerLinkActive="active">Registrering</a></li>
+    <li *ngIf="!isLoggedIn"><a routerLink="/login" routerLinkActive="active">Logga in</a></li>
+    <li *ngIf="isLoggedIn"><a (click)="logout()" style="cursor:pointer">Logga ut</a></li>
+  </ul>
+  <div class="navbar-lang">
+    <select>
+      <option value="en">English</option>
+      <option value="sv">Svenska</option>
+      <option value="tr">Türkçe</option>
+      <option value="de">Deutsch</option>
+    </select>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Välkommen till ErasmusConnect</h1>
+  <p>Din plattform för Erasmus-utbyten – hantera projekt, studenter och dokument på ett modernt och smidigt sätt.</p>
+</div>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
+
+<footer class="site-footer">
+  <span>&copy; 2025 Euprocon AB</span>
+</footer>

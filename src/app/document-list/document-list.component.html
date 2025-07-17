@@ -1,0 +1,29 @@
+<div class="document-list-container">
+  <h2>Dokument</h2>
+  <table class="document-table">
+    <thead>
+      <tr>
+        <th>Titel</th>
+        <th>Typ</th>
+        <th>Filväg</th>
+        <th>StudentId</th>
+        <th>ProjektId</th>
+        <th>Uppladdad</th>
+        <th>Åtgärder</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let document of documents">
+        <td>{{ document.title }}</td>
+        <td>{{ document.type }}</td>
+        <td>{{ document.filePath }}</td>
+        <td>{{ document.studentId }}</td>
+        <td>{{ document.projectId }}</td>
+        <td>{{ document.uploadedAt | date:'yyyy-MM-dd' }}</td>
+        <td>
+          <button class="delete-btn" (click)="deleteDocument(document.id)">Ta bort</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
