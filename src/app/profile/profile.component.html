@@ -1,0 +1,26 @@
+<div class="profile-box">
+  <div class="logo-box">
+    <img src="assets/erasmus-logo.png" alt="Erasmus Logo" class="logo-image" (click)="logout()">
+  </div>
+  <div class="profile-container">
+    <div class="top-column">
+      <h2 class="dark-blue-text">Profil</h2>
+    </div>
+    <div class="middle-column">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ user?.firstName }} {{ user?.lastName }}</mat-card-title>
+          <mat-card-subtitle>Användar-ID: {{ user?.id }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="name-columns">
+            <p><strong>Namn:</strong> {{ user?.firstName }}</p>
+            <p><strong>Efternamn:</strong> {{ user?.lastName }}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <button mat-raised-button color="primary" (click)="goBack()" class="custom-button">Tillbaka</button>
+      <button mat-raised-button color="warn" (click)="logout()" class="custom-button">Logga ut</button>
+    </div>
+  </div>
+</div>

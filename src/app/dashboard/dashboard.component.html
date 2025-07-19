@@ -1,7 +1,20 @@
-<h1>V�lkommen till ErasmusConnect Dashboard</h1>
-<nav>
-  <a routerLink="/students">Studenter</a> |
-  <a routerLink="/projects">Projekt</a> |
-  <a routerLink="/documents">Dokument</a>
-</nav>
-<button (click)="logout()">Logga ut</button>
+<div class="dashboard-box">
+  <div class="logo-box">
+    <img src="assets/erasmus-logo.png" alt="Erasmus Logo" class="logo-image" (click)="logout()">
+  </div>
+  <div class="dashboard-container">
+    <div class="top-column">
+      <h2 class="dark-blue-text">Välkommen till Dashboard</h2>
+    </div>
+    <div class="middle-column">
+      <p>Du är nu inloggad. Utforska dina alternativ:</p>
+      <nav>
+        <a routerLink="/profile" class="nav-link">Profil</a>
+        <a routerLink="/projects" class="nav-link">Projekt</a>
+        <a routerLink="/students" class="nav-link">Studenter</a>
+        <a routerLink="/documents" class="nav-link">Dokument</a>
+      </nav>
+      <button mat-raised-button (click)="logout()" class="logout-button">Logga ut</button>
+    </div>
+  </div>
+</div>

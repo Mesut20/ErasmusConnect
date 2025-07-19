@@ -1,20 +1,35 @@
-<div class="register-container">
-  <h2>Registrering</h2>
-  <form (ngSubmit)="register()">
-    <label for="username">Användarnamn</label>
-    <input id="username" [(ngModel)]="username" name="username" required pattern="^[A-Z][a-zA-Z0-9]*$" title="Första bokstaven måste vara stor.">
-    <label for="password">Lösenord</label>
-    <input id="password" type="password" [(ngModel)]="password" name="password" required pattern="^[A-Z][a-zA-Z0-9]*$" title="Första bokstaven måste vara stor.">
-    <label for="firstName">Förnamn</label>
-    <input id="firstName" [(ngModel)]="firstName" name="firstName" required>
-    <label for="lastName">Efternamn</label>
-    <input id="lastName" [(ngModel)]="lastName" name="lastName" required>
-    <label for="profilePic">Profilbild</label>
-    <input id="profilePic" type="file" (change)="onFileChange($event)">
-    <button type="submit">Registrera</button>
-    <div class="error" *ngIf="error">{{ error }}</div>
-    <div class="shortcut">
-      <a routerLink="/login">Har du redan ett konto? Logga in här</a>
+<div class="register-box">
+  <div class="logo-box">
+    <img src="assets/erasmus-logo.png" alt="Erasmus Logo" class="logo-image" (click)="navigateToHome()">
+  </div>
+  <div class="register-container">
+    <div class="top-column">
+      <h2 class="dark-blue-text">Registrera dig</h2>
     </div>
-  </form>
+    <div class="middle-column">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-columns">
+          <mat-form-field appearance="fill">
+            <mat-label>Namn</mat-label>
+            <input matInput formControlName="firstName" required matTooltip="Ditt namn">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Efternamn</mat-label>
+            <input matInput formControlName="lastName" required matTooltip="Ditt efternamn">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Användarnamn</mat-label>
+            <input matInput formControlName="username" required matTooltip="V�lj ett unikt anv�ndarnamn">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Lösenord</mat-label>
+            <input matInput type="password" formControlName="password" required matTooltip="Minst 6 tecken">
+          </mat-form-field>
+        </div>
+        <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid" class="custom-button">Registrera</button>
+        <p *ngIf="error" class="error">{{ error }}</p>
+      </form>
+      <p>Har konto? <a routerLink="/login" class="dark-blue-text">Logga in</a></p>
+    </div>
+  </div>
 </div>

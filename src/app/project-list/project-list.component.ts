@@ -1,28 +1,56 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // För *ngFor
+import { CommonModule } from '@angular/common';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ProjectService } from '../services/project.service';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.css'],
   standalone: true,
-  imports: [CommonModule] // Lokalt import för *ngFor
+  imports: [CommonModule, MatTableModule, MatButtonModule, MatTooltipModule, MatProgressSpinnerModule, MatDialogModule] // Ta bort ConfirmDialogComponent
 })
 export class ProjectListComponent implements OnInit {
-  projects: any[] = [];
+  dataSource = new MatTableDataSource<any>([]);
+  loading = true;
+  error = '';
 
-  constructor(private projectService: ProjectService) { }
+  displayedColumns: string[] = ['title', 'description', 'sendingUniversity', 'receivingUniversity', 'country', 'applicationDeadline', 'ectsCredits', 'actions'];
+
+  constructor(private projectService: ProjectService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.projectService.getProjects().subscribe(data => {
-      this.projects = data;
-    });
+    this.projectService.getProjects().pipe(
+      tap(data => {
+        this.dataSource.data = data || [];
+        this.loading = false;
+      }),
+      catchError(err => {
+        this.error = 'Fel vid hÃ¤mtning av projekt';
+        this.loading = false;
+        return throwError(() => err);
+      })
+    ).subscribe();
   }
 
-  deleteProject(id: number): void {
-    this.projectService.deleteProject(id).subscribe(() => {
-      this.projects = this.projects.filter(p => p.id !== id);
+  confirmDelete(id: number): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { message: 'Bekrï¿½fta radering av projekt?' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.projectService.deleteProject(id).subscribe({
+          next: () => this.ngOnInit(),
+          error: (err: any) => this.error = 'Radering misslyckades'
+        });
+      }
     });
   }
 }

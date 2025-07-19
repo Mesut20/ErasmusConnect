@@ -1,42 +1,57 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000/api/auth';
-  private tokenKey = 'authToken';
+  private token: string | null = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  login(Username: string, Password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, { Username, Password })
-      .pipe(
-        tap(response => {
-          if (response.token) {
-            localStorage.setItem(this.tokenKey, response.token);
-          }
-        })
-      );
-  }
-
+  // Hämta token
   getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    return this.token; // Ersätt med faktisk logik, t.ex. från localStorage
   }
 
+  // Sätt token
+  setToken(token: string) {
+    this.token = token;
+  }
+
+  // Kontrollera inloggning
   isLoggedIn(): boolean {
-    return !!this.getToken();
+    return !!this.token;
   }
 
+  // Logga ut
   logout(): void {
-    localStorage.removeItem(this.tokenKey);
+    this.token = null; // Rensa token
+    // Lägg till ytterligare logik, t.ex. rensa localStorage
   }
 
-  register(formData: FormData): Observable<any> {
-    // Accept FormData for full profile registration
-    return this.http.post<any>(`${this.apiUrl}/register`, formData);
+  // Logga in
+  login(credentials: { username: string; password: string }): Observable<any> {
+    // Simulerad API-anrop (ersätt med riktig endpoint)
+    return this.http.post('/api/login', credentials);
+  }
+
+  // Registrera
+  register(userData: { username: string; password: string; email?: string }): Observable<any> {
+    // Simulerad API-anrop (ersätt med riktig endpoint)
+    return this.http.post('/api/register', userData);
+  }
+
+  // Hämta användarprofil
+  getUserProfile(): Observable<any> {
+    // Simulerad API-anrop (ersätt med riktig endpoint)
+    return this.http.get('/api/profile');
+  }
+
+  // Hämta alla användare (för admin)
+  getAllUsers(): Observable<any[]> {
+    // Simulerad API-anrop (ersätt med riktig endpoint)
+    return this.http.get<any[]>('/api/users');
   }
 }

@@ -3,18 +3,16 @@ import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
-  providedIn: 'root'
+providedIn: 'root'
 })
 export class RegisterGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+constructor(private authService: AuthService, private router: Router) { }
 
-  canActivate(): boolean {
-    // If logged in, block access to /register and redirect to /dashboard
-    if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/dashboard']);
-      return false;
-    }
-    // If not logged in, allow access to /register
-    return true;
-  }
+canActivate(): boolean {
+if (this.authService.isLoggedIn()) {
+this.router.navigate(['/dashboard']);
+return false;
+}
+return true;
+}
 }

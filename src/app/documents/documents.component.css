@@ -1,0 +1,130 @@
+.documents-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #1e3a8a 0%, #60a5fa 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-box {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, #afeeee 0%, #ffffff 80%);
+  border: 2px solid rgba(30, 58, 138, 0.3);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-image {
+  width: 100%; /* Fyll hela boxen */
+  height: 100%; /* Fyll hela boxen */
+  object-fit: cover; /* Skalning för att fylla utan distortion */
+}
+
+.documents-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  background: linear-gradient(135deg, #afeeee 0%, #ffffff 80%);
+  border: 2px solid rgba(30, 58, 138, 0.3);
+  border-radius: 25px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 15px rgba(30, 58, 138, 0.2);
+  width: 480px;
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  z-index: 1;
+}
+
+.top-column {
+  background-color: transparent;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.middle-column {
+  background-color: transparent;
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+h2 {
+  color: #1e3a8a;
+  margin-bottom: 20px;
+}
+
+.custom-button {
+  background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 100%);
+  color: #ffffff !important;
+  padding: 15px 40px;
+  border-radius: 30px;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.custom-button:hover,
+.custom-button:focus,
+.custom-button:active {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(30, 58, 138, 0.4);
+  color: #ffffff !important;
+}
+
+.logout-button {
+  background: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 100%);
+  color: #1e3a8a !important;
+  padding: 15px 40px;
+  border-radius: 30px;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.logout-button:hover,
+.logout-button:focus,
+.logout-button:active {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(30, 58, 138, 0.4);
+  color: #1e3a8a !important;
+}
+
+mat-raised-button.logout-button .mat-button-wrapper {
+  color: #1e3a8a !important;
+}
+
+mat-raised-button.logout-button:hover .mat-button-wrapper,
+mat-raised-button.logout-button:focus .mat-button-wrapper,
+mat-raised-button.logout-button:active .mat-button-wrapper {
+  color: #1e3a8a !important;
+}
+
+.dark-blue-text {
+  color: #1e3a8a;
+}

@@ -1,29 +1,35 @@
-<div class="document-list-container">
-  <h2>Dokument</h2>
-  <table class="document-table">
-    <thead>
-      <tr>
-        <th>Titel</th>
-        <th>Typ</th>
-        <th>Filväg</th>
-        <th>StudentId</th>
-        <th>ProjektId</th>
-        <th>Uppladdad</th>
-        <th>Åtgärder</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let document of documents">
-        <td>{{ document.title }}</td>
-        <td>{{ document.type }}</td>
-        <td>{{ document.filePath }}</td>
-        <td>{{ document.studentId }}</td>
-        <td>{{ document.projectId }}</td>
-        <td>{{ document.uploadedAt | date:'yyyy-MM-dd' }}</td>
-        <td>
-          <button class="delete-btn" (click)="deleteDocument(document.id)">Ta bort</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<h2>Dokument</h2>
+<mat-spinner *ngIf="loading"></mat-spinner>
+<p *ngIf="error" class="error">{{ error }}</p>
+<mat-table [dataSource]="dataSource" *ngIf="!loading && !error">
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef> Titel </mat-header-cell>
+    <mat-cell *matCellDef="let doc"> {{ doc.title }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="type">
+    <mat-header-cell *matHeaderCellDef> Typ </mat-header-cell>
+    <mat-cell *matCellDef="let doc"> {{ doc.type }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="filePath">
+    <mat-header-cell *matHeaderCellDef> Filväg </mat-header-cell>
+    <mat-cell *matCellDef="let doc"> {{ doc.filePath }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="studentId">
+    <mat-header-cell *matHeaderCellDef> StudentId </mat-header-cell>
+    <mat-cell *matCellDef="let doc"> {{ doc.studentId }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="projectId">
+    <mat-header-cell *matHeaderCellDef> ProjektId </mat-header-cell>
+    <mat-cell *matCellDef="let doc"> {{ doc.projectId }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="uploadedAt">
+    <mat-header-cell *matHeaderCellDef> Uppladdad </mat-header-cell>
+    <mat-cell *matCellDef="let doc"> {{ doc.uploadedAt | date:'yyyy-MM-dd' }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef> Åtgärder </mat-header-cell>
+    <mat-cell *matCellDef="let doc"> <button mat-raised-button color="warn" (click)="confirmDelete(doc.id)" matTooltip="Radera dokument">Ta bort</button> </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

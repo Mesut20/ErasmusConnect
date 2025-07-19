@@ -1,51 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, MatButtonModule, MatCardModule, MatInputModule, ReactiveFormsModule],
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  username = '';
-  password = '';
-  firstName = '';
-  lastName = '';
-  profilePic: File | null = null;
-  error = '';
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  registerForm: FormGroup;
+  errorMessage: string = ''; // L�gg till error-egenskap
 
-  constructor(private authService: AuthService, private router: Router) {}
-
-  register() {
-    // Validate first letter uppercase
-    if (!/^[A-Z]/.test(this.username) || !/^[A-Z]/.test(this.password)) {
-      this.error = 'Första bokstaven i användarnamn och lösenord måste vara stor.';
-      return;
-    }
-    // Prepare registration data
-    const formData = new FormData();
-    formData.append('Username', this.username);
-    formData.append('Password', this.password);
-    formData.append('FirstName', this.firstName);
-    formData.append('LastName', this.lastName);
-    if (this.profilePic) {
-      formData.append('ProfilePic', this.profilePic);
-    }
-    this.authService.register(formData).subscribe({
-      next: () => this.router.navigate(['/login']),
-      error: (err: any) => this.error = err.error?.message || 'Registrering misslyckades.'
+  constructor(private fb: FormBuilder) {
+    this.registerForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      email: ['']
     });
   }
 
-  onFileChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.profilePic = input.files[0];
+  onSubmit() {
+    if (this.registerForm.valid) {
+      const userData = this.registerForm.value;
+      this.authService.register(userData).pipe(
+        catchError((err: any) => {
+          this.errorMessage = 'Registration failed'; // Uppdatera errorMessage vid fel
+          return throwError(() => err);
+        })
+      ).subscribe(() => {
+        this.router.navigate(['/login']);
+      });
     }
+  }
+
+  navigateToHome() {
+    this.router.navigate(['/home']); // Navigera till hemsidan
   }
 }

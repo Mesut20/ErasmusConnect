@@ -1,20 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DocumentListComponent } from './document-list.component';
 
-import { DocumentList } from './document-list';
+describe('DocumentListComponent', () => {
+  let component: DocumentListComponent;
 
-describe('DocumentList', () => {
-  let component: DocumentList;
-  let fixture: ComponentFixture<DocumentList>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [DocumentList]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(DocumentList);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    component = new DocumentListComponent();
   });
 
   it('should create', () => {

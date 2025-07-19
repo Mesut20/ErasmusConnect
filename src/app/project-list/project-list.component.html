@@ -1,31 +1,39 @@
-<div class="project-list-container">
-  <h2>Projekt</h2>
-  <table class="project-table">
-    <thead>
-      <tr>
-        <th>Titel</th>
-        <th>Beskrivning</th>
-        <th>Avsändande universitet</th>
-        <th>Mottagande universitet</th>
-        <th>Land</th>
-        <th>Deadline</th>
-        <th>ECTS</th>
-        <th>Åtgärder</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let project of projects">
-        <td>{{ project.title }}</td>
-        <td>{{ project.description }}</td>
-        <td>{{ project.sendingUniversity }}</td>
-        <td>{{ project.receivingUniversity }}</td>
-        <td>{{ project.country }}</td>
-        <td>{{ project.applicationDeadline | date:'yyyy-MM-dd' }}</td>
-        <td>{{ project.ectsCredits }}</td>
-        <td>
-          <button class="delete-btn" (click)="deleteProject(project.id)">Radera</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<h2>Projekt</h2>
+<mat-spinner *ngIf="loading"></mat-spinner>
+<p *ngIf="error" class="error">{{ error }}</p>
+<mat-table [dataSource]="dataSource" *ngIf="!loading && !error">
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef> Titel </mat-header-cell>
+    <mat-cell *matCellDef="let project"> {{ project.title }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef> Beskrivning </mat-header-cell>
+    <mat-cell *matCellDef="let project"> {{ project.description }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="sendingUniversity">
+    <mat-header-cell *matHeaderCellDef> Avsändande universitet </mat-header-cell>
+    <mat-cell *matCellDef="let project"> {{ project.sendingUniversity }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="receivingUniversity">
+    <mat-header-cell *matHeaderCellDef> Mottagande universitet </mat-header-cell>
+    <mat-cell *matCellDef="let project"> {{ project.receivingUniversity }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="country">
+    <mat-header-cell *matHeaderCellDef> Land </mat-header-cell>
+    <mat-cell *matCellDef="let project"> {{ project.country }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="applicationDeadline">
+    <mat-header-cell *matHeaderCellDef> Deadline </mat-header-cell>
+    <mat-cell *matCellDef="let project"> {{ project.applicationDeadline | date:'yyyy-MM-dd' }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ectsCredits">
+    <mat-header-cell *matHeaderCellDef> ECTS </mat-header-cell>
+    <mat-cell *matCellDef="let project"> {{ project.ectsCredits }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef> Åtgärder </mat-header-cell>
+    <mat-cell *matCellDef="let project"> <button mat-raised-button color="warn" (click)="confirmDelete(project.id)" matTooltip="Radera projekt">Radera</button> </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
